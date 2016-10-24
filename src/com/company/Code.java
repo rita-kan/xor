@@ -1,19 +1,15 @@
 package com.company;
 
-/**
- * Created by 1 on 23.09.2016.
- */
 public class Code {
 
     public static String Text;
-    private static String Key;
+    private static String Key = "some random key";
 
-    public Code(String text, String key){
+    public Code(String text){
         Text = text;
-        Key = key;
     }
 
-    public static String Encode(){
+    public String Encode(){
         byte[] text = Text.getBytes();
         byte[] key = Key.getBytes();
         byte[] result = new byte[Text.length()];
