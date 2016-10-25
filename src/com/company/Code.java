@@ -2,20 +2,27 @@ package com.company;
 
 public class Code {
 
-    public static String Text;
+    public static byte[] Text;
     private static String Key = "some random key";
 
-    public Code(String text){
-        Text = text;
+    public Code(byte[] textbytes){
+        Text = textbytes;
     }
 
-    public String Encode(){
-        byte[] text = Text.getBytes();
+    private byte[] XOR() {
         byte[] key = Key.getBytes();
-        byte[] result = new byte[Text.length()];
-        for (int i = 0; i<Text.length(); i++) {
-            result[i] = (byte) (text[i] ^ key[i % Key.length()]);
+        byte[] result = new byte[Text.length];
+        for (int i = 0; i<Text.length; i++) {
+            result[i] = (byte) (Text[i] ^ key[i % Key.length()]);
         }
-        return new String(result);
+        return result;
+    }
+
+    public byte[] Encode(){
+       return XOR();
+    }
+
+    public byte[] Decode(){
+        return XOR();
     }
 }

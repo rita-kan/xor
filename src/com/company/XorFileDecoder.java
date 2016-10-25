@@ -1,22 +1,17 @@
 package com.company;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class XorFileDecoder implements FileDecoder {
-    public String decode(String inputFilePath){
-        File Input = new File(inputFilePath);
-        try(FileReader reader = new FileReader(Input))
-        {
-            char[] buffer = new char[(int)Input.length()];
-            reader.read(buffer);
-            Code code = new Code(new String(buffer));
-            return code.Encode();
-        }
-        catch(IOException ex) {
-            System.out.println(ex.getMessage());
-            return "ERROR";
+    public String decode(String inputFilePath) throws IOException{
+        try (BufferedInputStream Input = new BufferedInputStream(new FileInputStream(inputFilePath))) {
+            byte[] text = new byte[Input.available()];
+            if(Input.read(text, 0, Input.available())!=-1) {
+                Code code = new Code(text);
+                return (new String(code.Decode()));
+            }
+            else
+                throw new IOException("The file cannot be read.");
         }
     }
 }

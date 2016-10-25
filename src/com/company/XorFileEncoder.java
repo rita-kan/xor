@@ -1,30 +1,24 @@
 package com.company;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import sun.misc.IOUtils;
+
+import java.io.*;
 
 public class XorFileEncoder implements FileEncoder {
 
-    public void endcode(String inputFilePath, String outputFilePath){
+    public void endcode(String inputFilePath, String outputFilePath) throws IOException{
 
-        File Input = new File(inputFilePath);
-        File Output = new File(outputFilePath);
-        try(FileReader reader = new FileReader(Input))
+        try(BufferedInputStream Input = new BufferedInputStream(new FileInputStream(inputFilePath)))
         {
-            char[] buffer = new char[(int)Input.length()];
-            reader.read(buffer);
-            Code code = new Code(new String(buffer));
-            try(FileWriter writer = new FileWriter(Output)){
-                writer.write(code.Encode());
+            byte[] text = new byte[Input.available()];
+            if (Input.read(text,0,Input.available())!=-1) {
+                Code code = new Code(text);
+                try (BufferedOutputStream Output = new BufferedOutputStream(new FileOutputStream(outputFilePath))) {
+                    Output.write(code.Encode());
+                }
             }
-            catch(IOException ex){
-                System.out.println(ex.getMessage());
-            }
-        }
-        catch(IOException ex){
-            System.out.println(ex.getMessage());
+            else
+                throw new IOException("The file cannot be read.");
         }
     }
 }
