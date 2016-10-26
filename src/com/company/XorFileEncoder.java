@@ -6,18 +6,16 @@ import java.io.*;
 
 public class XorFileEncoder implements FileEncoder {
 
-    public void endcode(String inputFilePath, String outputFilePath) throws IOException{
+    public void endcode(String inputFilePath, String outputFilePath) throws IOException {
 
-        try(BufferedInputStream Input = new BufferedInputStream(new FileInputStream(inputFilePath)))
-        {
-            byte[] text = new byte[Input.available()];
-            if (Input.read(text,0,Input.available())!=-1) {
+        try (BufferedInputStream input = new BufferedInputStream(new FileInputStream(inputFilePath))) {
+            byte[] text = new byte[input.available()];
+            if (input.read(text, 0, input.available()) != -1) {
                 Code code = new Code(text);
-                try (BufferedOutputStream Output = new BufferedOutputStream(new FileOutputStream(outputFilePath))) {
-                    Output.write(code.Encode());
+                try (BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(outputFilePath))) {
+                    output.write(code.encode());
                 }
-            }
-            else
+            } else
                 throw new IOException("The file cannot be read.");
         }
     }

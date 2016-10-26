@@ -16,13 +16,11 @@ public class Main {
                 FileDecoder decoder = new XorFileDecoder();
                 String result = decoder.decode(outputFilePath);
                 System.out.println(result);
+            } catch (IOException ex) {
+                System.out.println(ex.toString());
             }
-            catch (IOException ex){
-                System.out.println (ex.toString());
-            }
-        }
-        catch (IOException ex){
-            System.out.println (ex.toString());
+        } catch (IOException ex) {
+            System.out.println(ex.toString());
         }
     }
 }
