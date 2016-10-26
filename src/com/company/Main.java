@@ -12,13 +12,13 @@ public class Main {
         try {
             FileEncoder encoder = new XorFileEncoder();
             encoder.endcode(inputFilePath, outputFilePath);
-            try {
-                FileDecoder decoder = new XorFileDecoder();
-                String result = decoder.decode(outputFilePath);
-                System.out.println(result);
-            } catch (IOException ex) {
-                System.out.println(ex.toString());
-            }
+        } catch (IOException ex) {
+            System.out.println(ex.toString());
+        }
+        try {
+            FileDecoder decoder = new XorFileDecoder();
+            String result = decoder.decode(outputFilePath);
+            System.out.println(result);
         } catch (IOException ex) {
             System.out.println(ex.toString());
         }

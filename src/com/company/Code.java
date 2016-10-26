@@ -8,6 +8,7 @@ public class Code {
     public Code(byte[] textbytes) {
         this.textBytes = textbytes;
     }
+
     private byte[] xor() {
         byte[] keyByte = keyString.getBytes();
         byte[] result = new byte[this.textBytes.length];
